@@ -1,0 +1,13 @@
+name: catacombsandcatnip
+version: 0.1.0
+
+authors:
+  - polyface <polyface@proton.me>
+
+targets:
+  catacombsandcatnip:
+    main: src/catacombsandcatnip.cr
+
+crystal: '>= 1.16.3'
+
+license: MIT
