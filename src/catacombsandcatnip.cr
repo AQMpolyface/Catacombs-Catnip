@@ -8,13 +8,14 @@ FRAME_TIME = 1.0 / FPS
 main
 
 def main
-  init
+  init()
   game_state = GameState.new
 
   STDIN.raw!
   STDIN.blocking = false
 
   loop do
+    system("stty -echo")
     start = Time.monotonic
 
     begin
@@ -28,17 +29,20 @@ def main
     rescue IO::EOFError
       # No input available, continue loop
     end
-
-    draw game_state
+    system("stty echo")
+    draw(game_state)
 
     elapsed = Time.monotonic - start
     sleep_time = FRAME_TIME - elapsed.total_seconds
-    sleep sleep_time if sleep_time > 0
+
+    if sleep_time > 0
+      sleep sleep_time
+    end
   end
 
   STDIN.cooked!
   STDIN.blocking = true
-  exit_game
+  exit_game()
 end
 
 def match_action(action : Char, game_state : GameState)
@@ -48,7 +52,7 @@ def match_action(action : Char, game_state : GameState)
   when 's'
     game_state.advance_y(1)
   when 'd'
-    game_state.advance_x 1
+    game_state.advance_x(1)
   when 'a'
     game_state.advance_x(-1)
   when 'q'

@@ -19,5 +19,6 @@ end
 def exit_game
   puts CLEAR_SCREEN
   puts RETURN_SCREEN
+  `reset`
   exit(0)
 end
